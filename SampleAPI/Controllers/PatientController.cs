@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SampleAPI.Models;
+using SampleAPI.Services;
 
 namespace SampleAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/patient-groups")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class PatientController : ControllerBase
     {
         // GET api/values
         [HttpGet]
@@ -26,8 +28,10 @@ namespace SampleAPI.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult<Patient> Post([FromBody] PatientData patientData)
         {
+            PatientGroup_Service s = new PatientGroup_Service();
+            return s.CalculatePatientGroups(patientData);
         }
 
         // PUT api/values/5
